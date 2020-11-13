@@ -15,20 +15,26 @@ import numpy as np
 import csv
 import matplotlib.pyplot as plt
 
+#-- Variables --
+
+#largeur de la conduite en pixel et subdivision en intervalles de cette largeur
+largeur=1000
+subdi=20
+fichier_entree="resultats-matlab/tractrac120.csv"
+fichier_sortie="resultats-python/res120-max.csv"
+
 #-- Programme --
 
 
 #Creation d'une matrice "results" à partir du fichier .csv
 #Chaque ligne correspond à une particule à un certain moment
 results = []
-with open("resultats-matlab/video_bis.csv") as csvfile:
+with open(fichier_entree) as csvfile:
     reader = csv.reader(csvfile, quoting=csv.QUOTE_NONNUMERIC)
     for row in reader:
         results.append(row)
 
-#largeur de la conduite en pixel et subdivision en intervalles de cette largeur
-largeur=1000
-subdi=5
+
 inter=largeur//subdi
 
 #Matrice 'réduction' de 2 colonnes et n lignes correspondants à la matrice résults
@@ -74,7 +80,7 @@ for i in range(inter):
 print(final)
 
 #On sauvegarde la matrice finale dans un .csv
-np.savetxt("resultats-python/res.csv", final, delimiter=",", fmt='%1.4f')
+np.savetxt(fichier_sortie, final, delimiter=",", fmt='%1.4f')
 
 #On affiche le résultat
 plt.plot(final)
